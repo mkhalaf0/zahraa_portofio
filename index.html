@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zahraa Khalaf — Young Creator & Future Architect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --warm-cream: #FDF6EC;
+            --soft-peach: #FAE5D3;
+            --dusty-rose: #D4A0A0;
+            --terracotta: #C67B5C;
+            --deep-brown: #3D2B1F;
+            --muted-gold: #C9A96E;
+            --sage: #A8B5A2;
+            --paper-white: #FEFCF9;
+            --text-dark: #2C1810;
+            --text-mid: #5C4033;
+            --text-light: #8B7355;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--dusty-rose) var(--warm-cream);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--warm-cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 1.2rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(253, 246, 236, 0.92);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 20px rgba(61, 43, 31, 0.06);
+        }
+
+        .nav-logo {
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem; font-weight: 600;
+            color: var(--terracotta); text-decoration: none;
+        }
+
+        .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+
+        .nav-links a {
+            text-decoration: none; color: var(--text-mid);
+            font-size: 0.85rem; font-weight: 500;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            position: relative; padding-bottom: 4px;
+        }
+
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 0; height: 1.5px; background: var(--terracotta);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        .menu-toggle {
+            display: none; background: none; border: none; cursor: pointer; padding: 8px;
+        }
+
+        .menu-toggle span {
+            display: block; width: 24px; height: 2px;
+            background: var(--text-dark); margin: 5px 0; transition: all 0.3s;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 2rem;
+            position: relative; overflow: hidden;
+        }
+
+        .hero-bg-shapes { position: absolute; inset: 0; pointer-events: none; }
+
+        .hero-bg-shapes .shape { position: absolute; border-radius: 50%; opacity: 0.08; }
+
+        .shape-1 { width: 500px; height: 500px; background: var(--dusty-rose); top: -100px; right: -100px; animation: float 20s ease-in-out infinite; }
+        .shape-2 { width: 350px; height: 350px; background: var(--muted-gold); bottom: -80px; left: -80px; animation: float 15s ease-in-out infinite reverse; }
+        .shape-3 { width: 200px; height: 200px; background: var(--sage); top: 40%; left: 10%; animation: float 18s ease-in-out infinite 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        .hero-content { position: relative; z-index: 2; }
+
+        .hero-greeting {
+            font-family: 'Caveat', cursive; font-size: 1.5rem;
+            color: var(--terracotta); margin-bottom: 0.8rem;
+            opacity: 0; animation: fadeUp 0.8s ease forwards 0.3s;
+        }
+
+        .hero-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 700; line-height: 1.1;
+            color: var(--text-dark); margin-bottom: 1.2rem;
+            opacity: 0; animation: fadeUp 0.8s ease forwards 0.5s;
+        }
+
+        .hero-name em { font-style: italic; color: var(--terracotta); }
+
+        .hero-tagline {
+            font-size: 1.15rem; color: var(--text-light);
+            max-width: 520px; margin: 0 auto 2.5rem; font-weight: 300;
+            opacity: 0; animation: fadeUp 0.8s ease forwards 0.7s;
+        }
+
+        .hero-cta {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 0.9rem 2rem; background: var(--terracotta);
+            color: white; text-decoration: none;
+            font-size: 0.85rem; font-weight: 500;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            border-radius: 50px; transition: all 0.3s ease;
+            opacity: 0; animation: fadeUp 0.8s ease forwards 0.9s;
+        }
+
+        .hero-cta:hover {
+            background: var(--deep-brown);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(198, 123, 92, 0.25);
+        }
+
+        .hero-cta svg { transition: transform 0.3s; }
+        .hero-cta:hover svg { transform: translateX(3px); }
+
+        .hero-scroll-hint {
+            position: absolute; bottom: 2.5rem; left: 50%;
+            transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+            color: var(--text-light); font-size: 0.7rem;
+            letter-spacing: 2px; text-transform: uppercase;
+            opacity: 0; animation: fadeUp 0.8s ease forwards 1.2s;
+        }
+
+        .scroll-line {
+            width: 1px; height: 40px;
+            background: linear-gradient(to bottom, var(--terracotta), transparent);
+            animation: scrollPulse 2s ease infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; height: 40px; }
+            50% { opacity: 1; height: 55px; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section { padding: 6rem 2rem; }
+
+        .section-label { font-family: 'Caveat', cursive; font-size: 1.15rem; color: var(--terracotta); margin-bottom: 0.5rem; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; color: var(--text-dark); margin-bottom: 1.5rem; line-height: 1.2; }
+        .section-desc { color: var(--text-mid); max-width: 580px; font-size: 1rem; font-weight: 300; line-height: 1.8; }
+
+        .about { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .about-image-wrap { position: relative; }
+        .about-image-wrap::before { content: ''; position: absolute; inset: -12px; border: 1.5px solid var(--dusty-rose); border-radius: 20px; opacity: 0.4; }
+        .about-image-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-radius: 16px; overflow: hidden; }
+        .about-image-grid img { width: 100%; height: 180px; object-fit: cover; transition: transform 0.5s ease; }
+        .about-image-grid img:hover { transform: scale(1.05); }
+
+        .fun-facts { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.8rem; }
+        .fact-tag { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem; background: white; border: 1px solid rgba(201, 169, 110, 0.25); border-radius: 50px; font-size: 0.82rem; color: var(--text-mid); }
+        .fact-tag .emoji { font-size: 1rem; }
+
+        .year-section { max-width: 1200px; margin: 0 auto; }
+        .year-header { text-align: center; margin-bottom: 2rem; }
+
+        .year-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 1.5rem; background: var(--terracotta);
+            color: white; border-radius: 50px;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem; font-weight: 600; letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .year-header .section-desc { margin: 0 auto; }
+
+        .category-divider { display: flex; align-items: center; gap: 1.2rem; margin: 3rem 0 1.8rem; }
+        .category-divider::before, .category-divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(198, 123, 92, 0.2), transparent); }
+        .category-name { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; color: var(--text-mid); white-space: nowrap; }
+        .category-icon { font-size: 1.2rem; margin-right: 0.3rem; }
+
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+
+        .gallery-item {
+            position: relative; border-radius: 14px; overflow: hidden;
+            background: white; box-shadow: 0 4px 20px rgba(61, 43, 31, 0.06);
+            transition: all 0.4s ease; cursor: pointer;
+        }
+
+        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 12px 35px rgba(61, 43, 31, 0.12); }
+        .gallery-item img { width: 100%; height: 260px; object-fit: cover; display: block; transition: transform 0.6s ease; }
+        .gallery-item:hover img { transform: scale(1.04); }
+        .gallery-item-info { padding: 1.1rem 1.3rem; }
+        .gallery-item-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.25rem; }
+        .gallery-item-desc { font-size: 0.8rem; color: var(--text-light); font-weight: 300; line-height: 1.5; }
+        .gallery-item-tag { display: inline-block; margin-top: 0.6rem; padding: 0.2rem 0.65rem; background: var(--soft-peach); border-radius: 50px; font-size: 0.68rem; font-weight: 500; color: var(--terracotta); letter-spacing: 0.5px; text-transform: uppercase; }
+
+        .gallery-item.featured { grid-column: span 2; }
+        .gallery-item.featured img { height: 320px; }
+
+        .stats-strip { display: flex; justify-content: center; gap: 3rem; padding: 2.5rem 2rem; margin: 2rem 0; flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat-number { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--terracotta); line-height: 1; }
+        .stat-label { font-size: 0.78rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.3rem; }
+
+        .dream-section { background: linear-gradient(135deg, var(--deep-brown) 0%, #4A3728 100%); color: white; text-align: center; position: relative; overflow: hidden; }
+        .dream-section::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .dream-content { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+        .dream-section .section-label { color: var(--muted-gold); }
+        .dream-section .section-title { color: white; }
+        .dream-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; line-height: 1.6; color: rgba(255,255,255,0.85); margin-bottom: 1.5rem; }
+        .dream-text { color: rgba(255,255,255,0.6); font-weight: 300; font-size: 1rem; line-height: 1.8; }
+
+        footer { background: var(--paper-white); text-align: center; padding: 3rem 2rem; border-top: 1px solid rgba(61, 43, 31, 0.06); }
+        .footer-name { font-family: 'Caveat', cursive; font-size: 1.8rem; color: var(--terracotta); margin-bottom: 0.5rem; }
+        .footer-tagline { font-size: 0.85rem; color: var(--text-light); font-weight: 300; margin-bottom: 1rem; }
+        .footer-location { font-size: 0.78rem; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; }
+        .footer-made { margin-top: 1.5rem; font-size: 0.75rem; color: rgba(139, 115, 85, 0.5); }
+
+        .lightbox { position: fixed; inset: 0; background: rgba(44, 24, 16, 0.92); backdrop-filter: blur(8px); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 2rem; cursor: pointer; opacity: 0; transition: opacity 0.3s ease; }
+        .lightbox.active { display: flex; opacity: 1; }
+        .lightbox img { max-width: 90%; max-height: 85vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); object-fit: contain; }
+        .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; width: 44px; height: 44px; border: none; background: rgba(255,255,255,0.1); border-radius: 50%; color: white; font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+        .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(253, 246, 236, 0.97); backdrop-filter: blur(12px); padding: 1.5rem 2rem; gap: 1.2rem; box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+            .about { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.5rem; }
+            section { padding: 4rem 1.5rem; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .gallery-item.featured { grid-column: span 2; }
+            .gallery-item.featured img { height: 220px; }
+            .gallery-item img { height: 170px; }
+            .gallery-item-info { padding: 0.8rem 0.9rem; }
+            .gallery-item-title { font-size: 0.88rem; }
+            .gallery-item-desc { font-size: 0.75rem; }
+            .stats-strip { gap: 1.5rem; }
+            .stat-number { font-size: 2rem; }
+            .dream-quote { font-size: 1.2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-item.featured { grid-column: span 1; }
+            .gallery-item img, .gallery-item.featured img { height: 240px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#" class="nav-logo">Zahraa K.</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#grade7">Grade 7</a></li>
+        <li><a href="#dream">My Dream</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<section class="hero">
+    <div class="hero-bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+    <div class="hero-content">
+        <p class="hero-greeting">Hello, I'm</p>
+        <h1 class="hero-name">Zahraa <em>Khalaf</em></h1>
+        <p class="hero-tagline">A young creator from Lebanon who builds worlds from paper, cardboard, and imagination. Future architect in the making.</p>
+        <a href="#grade7" class="hero-cta">
+            See My Work
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+    </div>
+    <div class="hero-scroll-hint">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="about">
+        <div class="about-image-wrap reveal">
+            <div class="about-image-grid">
+                <img src="images/mosque-model.jpg" alt="Handmade mosque model">
+                <img src="images/popsicle-house-colorful.jpg" alt="Popsicle stick house">
+                <img src="images/ramadan-lanterns.jpg" alt="Ramadan lanterns">
+                <img src="images/wooden-house-model.jpg" alt="Wooden house model">
+            </div>
+        </div>
+        <div class="about-text reveal">
+            <p class="section-label">A little about me</p>
+            <h2 class="section-title">Creating since I can remember</h2>
+            <p class="section-desc">
+                I'm Zahraa, a Grade 7 student from Lebanon. I love turning simple materials like cardboard, paper, popsicle sticks, and clay into something beautiful. Every project teaches me something new about shapes, structure, and design. One day, I want to design real buildings that bring people the same joy my small creations bring me.
+            </p>
+            <div class="fun-facts">
+                <span class="fact-tag"><span class="emoji">🏗️</span> Future Architect</span>
+                <span class="fact-tag"><span class="emoji">🇱🇧</span> Made in Lebanon</span>
+                <span class="fact-tag"><span class="emoji">✂️</span> Paper & Cardboard</span>
+                <span class="fact-tag"><span class="emoji">🎨</span> Clay & Paint</span>
+                <span class="fact-tag"><span class="emoji">📐</span> Loves Geometry</span>
+                <span class="fact-tag"><span class="emoji">🌙</span> Ramadan Crafts</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ -->
+<!--  GRADE 7 — 2025 / 2026                         -->
+<!-- ════════════════════════════════════════════════ -->
+<section id="grade7" class="year-section">
+
+    <div class="year-header reveal">
+        <span class="year-badge">📚 Grade 7 — 2025 / 2026</span>
+        <h2 class="section-title">My First Year of Middle School</h2>
+        <p class="section-desc">29 projects and counting. From architectural models to Ramadan decorations, this year was all about building bigger, bolder, and more detailed.</p>
+    </div>
+
+    <div class="stats-strip reveal">
+        <div class="stat"><div class="stat-number">29</div><div class="stat-label">Projects</div></div>
+        <div class="stat"><div class="stat-number">6</div><div class="stat-label">Categories</div></div>
+        <div class="stat"><div class="stat-number">1</div><div class="stat-label">Big Dream</div></div>
+    </div>
+
+    <!-- Architecture & Models -->
+    <div class="category-divider reveal"><span class="category-name"><span class="category-icon">🏛️</span> Architecture & Models</span></div>
+    <div class="gallery-grid">
+        <div class="gallery-item featured reveal">
+            <img src="images/mosque-model.jpg" alt="Cardboard mosque model" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Mosque Model</h3>
+                <p class="gallery-item-desc">Cardboard mosque with dome, two minarets, arched windows, and a crescent-and-star finial</p>
+                <span class="gallery-item-tag">Architecture</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/cardboard-house-model.jpg" alt="Victorian house model" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Victorian House</h3>
+                <p class="gallery-item-desc">Detailed cardboard house with staircases, balcony, windows, and shingled roof</p>
+                <span class="gallery-item-tag">Architecture</span>
+            </div>
+        </div>
+        <div class="gallery-item featured reveal">
+            <img src="images/playground-model.jpg" alt="Cardboard playground" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Playground & Amusement Park</h3>
+                <p class="gallery-item-desc">Full-scale miniature park with slides, swings, ferris wheel, spiral tower, and roller coaster</p>
+                <span class="gallery-item-tag">Architecture</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/popsicle-house-colorful.jpg" alt="Colorful popsicle house" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Colorful Stick House</h3>
+                <p class="gallery-item-desc">Two-story house from painted popsicle sticks with tissue flowers</p>
+                <span class="gallery-item-tag">Architecture</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/popsicle-house-white.jpg" alt="White popsicle house" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">White Cottage</h3>
+                <p class="gallery-item-desc">White two-story cottage with pink frames and pom-pom accents</p>
+                <span class="gallery-item-tag">Architecture</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/wooden-house-model.jpg" alt="Wooden house model" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Wooden House Model</h3>
+                <p class="gallery-item-desc">Precision-assembled two-story wooden house with porch and dormer</p>
+                <span class="gallery-item-tag">Model Kit</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/wooden-train-model.jpg" alt="Wooden train" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Steam Locomotive</h3>
+                <p class="gallery-item-desc">Assembled wooden locomotive with detailed wheels, boiler, and cabin</p>
+                <span class="gallery-item-tag">Model Kit</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ramadan Decorations -->
+    <div class="category-divider reveal"><span class="category-name"><span class="category-icon">🌙</span> Ramadan Decorations</span></div>
+    <div class="gallery-grid">
+        <div class="gallery-item reveal">
+            <img src="images/ramadan-lanterns.jpg" alt="Ramadan lanterns" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Ramadan Lanterns</h3>
+                <p class="gallery-item-desc">Three cardboard lanterns with arched windows and corrugated trim</p>
+                <span class="gallery-item-tag">Ramadan</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/ramadan-wreath.jpg" alt="Ramadan wreath" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Ramadan Rose Wreath</h3>
+                <p class="gallery-item-desc">Circular wreath of hand-rolled paper roses with "RAMADAN" lettering</p>
+                <span class="gallery-item-tag">Ramadan</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/ramadan-standing-sign.jpg" alt="Ramadan sign" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Ramadan Table Sign</h3>
+                <p class="gallery-item-desc">Gold cardboard "RAMADAN" letters on a base with paper roses</p>
+                <span class="gallery-item-tag">Ramadan</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/golden-crescent-wall.jpg" alt="Golden crescent" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Golden Crescent Moon</h3>
+                <p class="gallery-item-desc">Gold-foiled crescent adorned with white paper roses, wall-hung</p>
+                <span class="gallery-item-tag">Ramadan</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/crescent-moon-roses.jpg" alt="Crescent on stand" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Crescent on Stand</h3>
+                <p class="gallery-item-desc">White paper rose crescent moon on a cardboard base</p>
+                <span class="gallery-item-tag">Ramadan</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/crescent-star-tissue.jpg" alt="Crescent and star" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Crescent & Star</h3>
+                <p class="gallery-item-desc">Tissue-covered crescent and star on a cardboard stand</p>
+                <span class="gallery-item-tag">Ramadan</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/paper-roses-arrangement.jpg" alt="Paper roses" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Paper Rose Collection</h3>
+                <p class="gallery-item-desc">Hand-rolled white paper roses in decorative clusters</p>
+                <span class="gallery-item-tag">Ramadan</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/ramadan-shadow-boxes.jpg" alt="Ramadan shadow boxes" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Ramadan Shadow Boxes</h3>
+                <p class="gallery-item-desc">Stacked boxes with glitter crescent and star cutouts in purple, pink, and yellow</p>
+                <span class="gallery-item-tag">Ramadan</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Decor & Furniture -->
+    <div class="category-divider reveal"><span class="category-name"><span class="category-icon">🪑</span> Home Decor & Furniture</span></div>
+    <div class="gallery-grid">
+        <div class="gallery-item featured reveal">
+            <img src="images/cardboard-desk-organizer.jpg" alt="Desk organizer" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Desk Organizer Cabinet</h3>
+                <p class="gallery-item-desc">Wall-mounted organizer from cardboard with wood-grain finish, cabinets, shelves, and art supply storage</p>
+                <span class="gallery-item-tag">Furniture</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/wall-hanging-shelves.jpg" alt="Wall shelves" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Hanging Wall Shelves</h3>
+                <p class="gallery-item-desc">Triangle and hexagon popsicle stick shelves with flower pots</p>
+                <span class="gallery-item-tag">Decor</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/quran-book-stand.jpg" alt="Book stand" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Folded Book Stand</h3>
+                <p class="gallery-item-desc">Paper-folded book holder with X-shaped base</p>
+                <span class="gallery-item-tag">Decor</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/photo-collage-frames.jpg" alt="Photo frames" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Memory Frames</h3>
+                <p class="gallery-item-desc">Shadow box frames with photos, flowers, and fuzzy pink trim</p>
+                <span class="gallery-item-tag">Decor</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/clay-flower-mirror.jpg" alt="Clay flower mirror" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Flower Frame Mirror</h3>
+                <p class="gallery-item-desc">Round mirror framed with colorful clay flowers</p>
+                <span class="gallery-item-tag">Decor</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/pink-handmade-book.jpg" alt="Pink notebook" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Handmade Notebook</h3>
+                <p class="gallery-item-desc">Pink fabric-covered notebook with hand-sewn binding and paper roses</p>
+                <span class="gallery-item-tag">Craft</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jewelry & Accessories -->
+    <div class="category-divider reveal"><span class="category-name"><span class="category-icon">💎</span> Jewelry & Accessories</span></div>
+    <div class="gallery-grid">
+        <div class="gallery-item reveal">
+            <img src="images/bracelet-stand-large.jpg" alt="Bracelet tower" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Bracelet Tower</h3>
+                <p class="gallery-item-desc">Multi-tier cardboard organizer with handmade beaded jewelry</p>
+                <span class="gallery-item-tag">Accessories</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/jewelry-stand-necklaces.jpg" alt="Jewelry stand" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Jewelry Display Stand</h3>
+                <p class="gallery-item-desc">T-shaped cardboard stand for beaded necklaces and pearls</p>
+                <span class="gallery-item-tag">Accessories</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/popsicle-jewelry-box.jpg" alt="Jewelry box" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Treasure Box</h3>
+                <p class="gallery-item-desc">Popsicle stick box with pearl flowers, seed beads, and leaf shapes</p>
+                <span class="gallery-item-tag">Accessories</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/decorated-hat-pink.jpg" alt="Party hat" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Candy Party Hat</h3>
+                <p class="gallery-item-desc">Pink top hat with foam candy shapes, bows, and confetti</p>
+                <span class="gallery-item-tag">Wearable</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/graduation-cap.jpg" alt="Graduation cap" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Graduation Cap</h3>
+                <p class="gallery-item-desc">Black glitter cap with gold tassel, made from foam board</p>
+                <span class="gallery-item-tag">Wearable</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Art & Drawing -->
+    <div class="category-divider reveal"><span class="category-name"><span class="category-icon">🎨</span> Art & Drawing</span></div>
+    <div class="gallery-grid">
+        <div class="gallery-item reveal">
+            <img src="images/ramadan-kareem-drawing.jpg" alt="Ramadan drawing" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Ramadan Kareem Drawing</h3>
+                <p class="gallery-item-desc">Pencil illustration of lanterns, Quran, prayer beads, and mosque in ornate frame</p>
+                <span class="gallery-item-tag">Art</span>
+            </div>
+        </div>
+        <div class="gallery-item reveal">
+            <img src="images/birthday-card-clay.jpg" alt="Birthday card" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Birthday Card</h3>
+                <p class="gallery-item-desc">Handmade card with 3D clay letters and foam flower decorations</p>
+                <span class="gallery-item-tag">Art</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- School Projects -->
+    <div class="category-divider reveal"><span class="category-name"><span class="category-icon">📖</span> School Projects</span></div>
+    <div class="gallery-grid">
+        <div class="gallery-item reveal">
+            <img src="images/kalila-wa-dimna-project.jpg" alt="Kalila wa Dimna" loading="lazy">
+            <div class="gallery-item-info">
+                <h3 class="gallery-item-title">Kalila wa Dimna</h3>
+                <p class="gallery-item-desc">Arabic literature project on Ibn al-Muqaffa's classic fables with handwritten panels</p>
+                <span class="gallery-item-tag">School</span>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- ════════════════════════════════════════════════ -->
+<!--  END GRADE 7                                    -->
+<!--  To add Grade 8: copy the section block above,  -->
+<!--  change id="grade8", update badge & content,    -->
+<!--  and add a nav link.                            -->
+<!-- ════════════════════════════════════════════════ -->
+
+<section id="dream" class="dream-section">
+    <div class="dream-content reveal">
+        <p class="section-label">Looking ahead</p>
+        <h2 class="section-title">My Dream</h2>
+        <p class="dream-quote">"I want to design buildings that tell stories, spaces where people feel at home, and structures that stand as works of art."</p>
+        <p class="dream-text">
+            Every house I build from cardboard, every mosque I shape from scrap, every playground I construct from nothing is practice for the real thing. Architecture is where art meets engineering, and I can't wait to bring my designs to life at full scale.
+        </p>
+    </div>
+</section>
+
+<footer>
+    <p class="footer-name">Zahraa Khalaf</p>
+    <p class="footer-tagline">Young Creator & Future Architect</p>
+    <p class="footer-location">📍 Lebanon</p>
+    <p class="footer-made">Handmade with love, just like everything else</p>
+</footer>
+
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <img src="" alt="Enlarged project view" id="lightboxImg">
+</div>
+
+<script>
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', () => {
+            lightboxImg.src = item.querySelector('img').src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    lightbox.addEventListener('click', (e) => {
+        if (e.target !== lightboxImg) { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>
